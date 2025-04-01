@@ -11,8 +11,16 @@ class CategoriaController{
 
     static postCategorias = async(req,res)=>{
        const {nombre,descripcion} = req.body;
+       try{
        const objCategoria = new Categoria(nombre,descripcion);
        const envio = await objCategoria.post();
+       res.status(201).json(envio)
+       }catch(error){
+          res.status(500).json({error:error.message})
+
+       }
+       
+       
        
     }
 }
