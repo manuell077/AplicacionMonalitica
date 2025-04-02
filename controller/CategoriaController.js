@@ -13,7 +13,7 @@ class CategoriaController{
        const {nombre,descripcion} = req.body;
        try{
        const objCategoria = new Categoria(nombre,descripcion);
-       const envio = await objCategoria.post();
+       const envio = await objCategoria.post(no);
        res.status(201).json(envio)
        }catch(error){
           res.status(500).json({error:error.message})
@@ -23,6 +23,42 @@ class CategoriaController{
        
        
     }
-}
+
+    static actualizarCategoria = async(req,res)=>{
+
+        
+        const {id} = req.params 
+        const {nombre,descripcion} = req.body;
+       
+        try{ 
+           const objetoCategoria = new Categoria(nombre,descripcion)
+           const categoria = await objetoCategoria.update(nombre,descripcion,id);
+           res.json(categoria);
+        }catch(error){
+            res.status(500).json({error:error.message})
+        }
+        
+    }
+
+    static actualizarParcialmente = async(req,res) =>{
+        
+        const {id} = req.params 
+        const info = req.body;
+        
+        
+            
+        
+        try{ 
+           const objetoCategoria = new Categoria()
+           const categoria = await objetoCategoria.updateParcial(id,info);
+           res.json(categoria);
+        }catch(error){
+            res.status(500).json({error:error.message})
+        }
+
+    }
+    
+    }
+
 
 export default CategoriaController;

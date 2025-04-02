@@ -18,13 +18,13 @@ class Categoria{
     }
 
 
-    async post(){
+    async post(nombre,descripcion){
          try{
-            const[rows] = await connection.query("INSERT INTO categorias (nombre,descripcion) values(?,?)",[this.nombre, this.descripcion]);
+            const[rows] = await connection.query("INSERT INTO categorias (nombre,descripcion) values(?,?)",[nombre, descripcion]);
             return {
                 id: rows.id,
-                nombre:this.nombre,
-                descripcion: this.descripcion
+                nombre,
+                descripcion
             } 
          }catch(error){
             throw new Error(" Error al enviar usuario");
@@ -32,6 +32,42 @@ class Categoria{
          }
 
     }
+
+    async update(nombre,descripcion,id){
+        try{
+           const[rows] = await connection.query('UPDATE categorias SET nombre = ? , descripcion = ?  where id = ?',[nombre,descripcion,id])
+           
+           if(rows.affectedRows === 0){
+             throw new Error("Categoria no encontrada")
+           }
+
+           return {id,nombre:nombre , descripcion:descripcion}
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    async updateParcial(id,info){
+
+         try{
+            for (const key in info) {
+                
+            
+            const[rows] = await connection.query(`UPDATE categorias SET ${key} = ?   where id = ?`,[info[key],id] )
+            }
+            const[respuesta]  = await connection.query(`SELECT * FROM  categorias where id = ? `,[id]) 
+            
+            return respuesta;
+
+         }catch(error){
+             //console.log(error)
+         }
+
+
+    }
+
+
+    
 }
 
 export default Categoria;
