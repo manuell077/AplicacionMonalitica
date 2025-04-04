@@ -19,7 +19,7 @@ class Productos{
 
     async postAll(nombre, descripcion,precio,categoria_id) {
         try {
-          console.log("hola")
+          
           const [result] = await connection.query("INSERT INTO productos (nombre,descripcion,precio,categoria_id) values(?,?,?,?)",[nombre, descripcion,precio,categoria_id])
           
           return {

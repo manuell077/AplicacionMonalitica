@@ -12,10 +12,7 @@ class ProductosController{
     static postAllproductos = async (req, res) => {
         const { nombre, descripcion,precio,categoria_id } = req.body;
 
-        console.log(nombre)
-        console.log(descripcion)
-        console.log(precio)
-        console.log(categoria_id)
+        
        
 
         const OBJproductos = new Productos();
