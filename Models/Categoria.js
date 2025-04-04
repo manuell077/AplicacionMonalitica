@@ -66,6 +66,18 @@ class Categoria{
 
     }
 
+    async delete(id){
+       
+        try{
+            const[respuesta] = await connection.query('DELETE FROM categorias where id = ?',[id])
+            
+
+        }catch(error){
+          console.log(error);
+        }
+
+    }
+
 
     
 }

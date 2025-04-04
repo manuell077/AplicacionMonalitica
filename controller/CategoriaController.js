@@ -13,7 +13,7 @@ class CategoriaController{
        const {nombre,descripcion} = req.body;
        try{
        const objCategoria = new Categoria(nombre,descripcion);
-       const envio = await objCategoria.post(no);
+       const envio = await objCategoria.post(nombre,descripcion);
        res.status(201).json(envio)
        }catch(error){
           res.status(500).json({error:error.message})
@@ -58,7 +58,21 @@ class CategoriaController{
 
     }
     
-    }
+    
 
+    static eliminarRegistro = async(req,res) =>{
+         
+        const {id} = req.params;
+
+        try{ 
+            const objetoCategoria = new Categoria()
+            const categoria = await objetoCategoria.delete(id);
+            res.json(categoria);
+         }catch(error){
+             res.status(500).json({error:error.message})
+         }
+
+    }
+}
 
 export default CategoriaController;
