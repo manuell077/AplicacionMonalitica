@@ -66,14 +66,27 @@ class Categoria{
 
     }
 
+    async validarCategoriasVacias(categoria_id){
+        const [respuesta] = await connection.query("SELECT * FROM  productos WHERE  categoria_id= ?",[categoria_id])
+        return respuesta.length>0;
+
+    }
+
     async delete(id){
        
         try{
-            const[respuesta] = await connection.query('DELETE FROM categorias where id = ?',[id])
+           
+            if(await this.validarCategoriasVacias(id)){
+
+                throw new Error ("No se puede  eliminar la categoria porque tienen productos asociados ")
+            }
+
+            const[respuesta] = await connection.query('DELETE FROM categorias WHERE id = ?',[id])
             
+            return respuesta;
 
         }catch(error){
-          console.log(error);
+           throw new Error(error)
         }
 
     }

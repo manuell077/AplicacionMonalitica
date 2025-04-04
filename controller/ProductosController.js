@@ -9,18 +9,19 @@ class ProductosController{
 
     }
 
-    static postProductos = async(req,res)=>{
-       const {nombre,descripcion,precio,categoria_id} = req.body;
-       try{
-       const objproducto = new Productos(nombre,descripcion,precio,categoria_id);
-       const envioProducto = await objproducto.post();
-       res.status(201).json(envioProducto)
-       }catch(error){
-          res.status(500).json({error:error.message})
+    static postAllproductos = async (req, res) => {
+        const { nombre, descripcion,precio,categoria_id } = req.body;
 
-       }
+        console.log(nombre)
+        console.log(descripcion)
+        console.log(precio)
+        console.log(categoria_id)
        
-    }
+
+        const OBJproductos = new Productos();
+        const productos = await OBJproductos.postAll(nombre, descripcion,precio,categoria_id);
+        res.status(201).json(productos);
+      }
 
     static actualizarProducto = async(req,res)=>{
         
