@@ -5,6 +5,7 @@ import {validarCategoria} from "../middlewares/validarCategoria.js"
 const router= express.Router();
 
 router.get('/',CategoriaController.getAllCategorias)
+router.get('/:id',CategoriaController.getCategoria)
 router.post('/', validarCategoria,   CategoriaController.postCategorias)   
 router.put('/:id',CategoriaController.actualizarCategoria) 
 router.patch('/:id',CategoriaController.actualizarParcialmente)

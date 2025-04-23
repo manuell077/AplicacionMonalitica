@@ -16,6 +16,15 @@ class Productos{
         }
     }
 
+    async getProductoByCategoriaId(id) {
+      try {
+        const [productos] = await connection.query("SELECT * from productos WHERE categoria_id = ?", [id]);
+        return productos;
+      } catch (error) {
+        throw new Error("Error al obtener los productos.")
+      }
+    }
+
 
     async postAll(nombre, descripcion,precio,categoria_id) {
         try {
